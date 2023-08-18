@@ -134,6 +134,13 @@ if not IsModifierPressed("lctrl") then
         MoveMouseRelative(dx, dy)
         x = x - dx
         y = y - dy
+else
+  wait_till(((i - 1) * smoothness - j + 1) * delay * weapon["ctrlmode"])
+        dx = x / j
+        dy = y / j
+        MoveMouseRelative(dx, dy)
+        x = x - dx
+        y = y - dy
 end
         if not IsMouseButtonPressed(1) then break end
     
