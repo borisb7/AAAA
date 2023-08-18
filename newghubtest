@@ -1,0 +1,675 @@
+--[[ Script Start ]]
+local Lighton_key     = "numlock"
+local ScopeMode = false
+local CrouchMode = "lctrl"
+local HoldBreathMode = "lshift"
+local AttachmentsMode = "capslock"
+local WeaponRecoil    = false
+local CurrentWeapon   = 0
+local is_r_pressed = false
+local right_click = 2
+
+
+ -- save right click state
+    if (event == "MOUSE_BUTTON_PRESSED" and arg == right_click and not IsModifierPressed(HoldBreathMode)) then
+        is_r_pressed = true
+        --OutputLogMessage("EN\n")
+    elseif (event == "MOUSE_BUTTON_RELEASED" and arg == right_click) then
+        is_r_pressed = false
+        --OutputLogMessage("DIS\n")
+    end
+
+userInfo = {
+
+debug = 0,
+
+cpuLoad = 2,
+
+sensitivity = {
+
+        ADS = 100,
+        Aim = 0.55,
+
+    },
+
+    aimingSettings = "ctrlmode",
+
+
+
+    canUse = {
+        [".45"] = {
+            -- Р В¶РЎвЂєР вЂћР В¶РЎС›Р’В°             Р В¶Р РѓР Р‹Р ВµРЎВР РЏ         Р В·РЎвЂ“Р’В»Р В¶РІР‚СћР’В°        Р Т‘РЎвЂРІР‚в„–Р С‘РІвЂћвЂ“Р вЂ Р В·РЎвЂ“Р’В»Р В¶РІР‚СћР’В°
+            { "UMP45",          1,          1,          0.8 }, -- Р ВµРЎСџРЎвЂќР В·Р Р‹Р вЂљР в„–РІР‚СћРЎС™ + Р В¶РІР‚В°Р’В©Р ВµР’В®РІвЂћвЂ“Р С—РЎВР Р‰Bizon (Р ВµРЎСџРЎвЂќР В·Р Р‹Р вЂљР в„–РІР‚СћРЎС™Р ВµР РЉРЎвЂ“Р ВµР РЏР вЂЎ)Р С—РЎВР Р‰Vector (Р С‘Р Р‹РўС’Р ВµР С“РЎвЂ” + Р ВµРЎСџРЎвЂќР В·Р Р‹Р вЂљР в„–РІР‚СћРЎС™ + Р В¶РІР‚В°Р’В©Р ВµР’В®РІвЂћвЂ“) | Reddot + MagР С—РЎВР Р‰Bizon (Reddot)Р С—РЎВР Р‰Vector (Komp + Reddot + Mag)
+            { "Tommy Gun",      1,          1,          0.8 }, -- Р В¶РІР‚В°Р’В©Р ВµР’В®РІвЂћвЂ“ | Mag
+        },
+            -- Р В¶РЎвЂєР вЂћР В¶РЎС›Р’В°             Р В¶Р РѓР Р‹Р ВµРЎВР РЏ         Р В·РЎвЂ“Р’В»Р В¶РІР‚СћР’В°        Р Т‘РЎвЂРІР‚в„–Р С‘РІвЂћвЂ“Р вЂ Р В·РЎвЂ“Р’В»Р В¶РІР‚СћР’В°
+        ["9mm"] = {
+            { "Vector",         1,          1,          0.8 }, -- Р ВµРЎСџРЎвЂќР В·Р Р‹Р вЂљР в„–РІР‚СћРЎС™ + Р В¶РІР‚В°Р’В©Р ВµР’В®РІвЂћвЂ“ | Reddot + Mag
+            { "Micro UZI",      1,          1,          0.8 }, -- Р В¶РІР‚В°Р’В©Р ВµР’В®РІвЂћвЂ“ | Mag
+        },
+        ["5.56"] = {
+            -- Р В¶РЎвЂєР вЂћР В¶РЎС›Р’В°             Р В¶Р РѓР Р‹Р ВµРЎВР РЏ         Р В·РЎвЂ“Р’В»Р В¶РІР‚СћР’В°        Р Т‘РЎвЂРІР‚в„–Р С‘РІвЂћвЂ“Р вЂ Р В·РЎвЂ“Р’В»Р В¶РІР‚СћР’В°
+            { "M416",           1,          1,          0.9,          3 }, -- Р С‘Р Р‹РўС’Р ВµР С“РЎвЂ” + Р ВµРЎСџРЎвЂќР В·Р Р‹Р вЂљР в„–РІР‚СћРЎС™ + Р В·РІР‚С”РўвЂР С‘Р’В§РІР‚в„ў + Р В¶РЎвЂєР вЂћР В¶РІР‚В°Р’В + Р В¶РІР‚В°Р’В©Р ВµР’В®РІвЂћвЂ“ | Komp + Reddot + Triangular grip + Gunstock + Mag
+        },
+        ["7.62"] = {
+            -- Р В¶РЎвЂєР вЂћР В¶РЎС›Р’В°             Р В¶Р РѓР Р‹Р ВµРЎВР РЏ         Р В·РЎвЂ“Р’В»Р В¶РІР‚СћР’В°        Р Т‘РЎвЂРІР‚в„–Р С‘РІвЂћвЂ“Р вЂ Р В·РЎвЂ“Р’В»Р В¶РІР‚СћР’В°
+            { "AKM",            1,          1,          0.8 }, -- Р С‘Р Р‹РўС’Р ВµР С“РЎвЂ” + Р ВµРЎСџРЎвЂќР В·Р Р‹Р вЂљР в„–РІР‚СћРЎС™ + Р В¶РІР‚В°Р’В©Р ВµР’В®РІвЂћвЂ“ | Komp + Reddot + Mag
+      
+        },
+    },
+
+    G_bind = {
+        -- G
+        ["G3"] = "",
+        ["G4"] = "UMP45",
+        ["G5"] = "M416",
+        ["G6"] = "5.56",
+        ["G7"] = "9mm",
+        ["G8"] = "7.62",
+        ["G9"] = ".45",
+        ["G10"] = "last",
+        ["G11"] = "next",
+ 
+    },
+}
+
+
+---------------------Internal Configuration---------------------
+pubg = {
+    gun = {
+        [".45"] = {},
+        ["9mm"] = {},
+        ["5.56"] = {},
+        ["7.62"] = {},
+    },
+    gunOptions = {
+        [".45"] = {},
+        ["9mm"] = {},
+        ["5.56"] = {},
+        ["7.62"] = {},
+    },
+    allCanUse = {},
+
+    sleepRandom = { userInfo.cpuLoad, userInfo.cpuLoad + 5 },
+
+    generalSensitivityRatio = userInfo.sensitivity.ADS / 100,
+
+
+}
+
+function pubg.isAimingState (mode)
+    local switch = {
+
+        ["ADS"] = function ()
+            if userInfo.aimingSettings == "ctrlmode" then 
+                return IsMouseButtonPressed(3) 
+
+                
+            end
+        end,
+
+        ["Aim"] = function ()
+           if userInfo.aimingSettings == "ctrlmode" then
+                return false
+            elseif userInfo.aimingSettings == "custom" then
+                return userInfo.customAimingSettings.Aim()
+            end
+        end,
+
+    }
+
+    return switch[mode]()
+end
+
+pubg["M16A4"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 108,
+        ballistic = {
+            {1, 0},
+            {5, 20},
+            {40, 24},
+        }
+    })
+
+end
+
+pubg["SCAR-L"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 96,
+        ballistic = {
+            {1, 0},
+            {2, 30},
+            {5, 20},
+            {10, 24},
+            {15, 28},
+            {40, 32},
+        }
+    })
+
+end
+
+
+
+pubg["Tommy Gun"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 84,
+        ballistic = {
+            {1, 0},
+            {3, 20},
+            {6, 21},
+            {8, 24},
+            {10, 30},
+            {15, 40},
+            {50, 45},
+        }
+    })
+
+end
+
+pubg["G36C"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 86,
+        ballistic = {
+            {1, 0},
+            {2, 40},
+            {5, 16},
+            {10, 26},
+            {15, 30},
+            {20, 34},
+            {40, 36},
+        }
+    })
+
+end
+
+pubg["Vector"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 55,
+        ballistic = {
+            {1, 0},
+            {6, 16},
+            {10, 20},
+            {13, 24},
+            {15, 28},
+            {20, 32},
+            {33, 34},
+        }
+    })
+
+end
+
+pubg["Micro UZI"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 46,
+        ballistic = {
+            {1, 0},
+            {2, 13},
+            {10, 12},
+            {15, 20},
+            {35, 30},
+        }
+    })
+
+end
+
+pubg["UMP45"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 94,
+        ballistic = {
+            {1, 0},
+            {5, 18},
+            {15, 30},
+            {35, 32},
+        }
+    })
+
+end
+
+pubg["AKM"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 99,
+        ballistic = {
+            {1, 0},
+            {2, 42},
+            {5, 25},
+            {10, 32},
+            {40, 40},
+        }
+    })
+
+end
+
+pubg["M416"] = function  (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 70},
+            {2, 65},
+            {4, 80},
+            {10, 100},
+            {15, 108},
+            {30, 108},
+            {40, 107},
+            {50, 105},
+            {60, 105},
+        }
+    })
+
+end
+
+--FUNCTION--
+
+local is_r_pressed = false
+local right_click = 2
+-- save right click state
+    if (event == "MOUSE_BUTTON_PRESSED" and arg == right_click and family == "mouse" and not IsModifierPressed(HoldBreathMode)) then
+        is_r_pressed = true
+        --OutputLogMessage("EN\n")
+    elseif (event == "MOUSE_BUTTON_RELEASED" and arg == right_click and family == "mouse") then
+        is_r_pressed = false
+        --OutputLogMessage("DIS\n")
+    end
+
+ -- save right click state
+    if (event == "MOUSE_BUTTON_PRESSED" and arg == right_click and not IsModifierPressed(HoldBreathMode)) then
+        is_r_pressed = true
+        --OutputLogMessage("EN\n")
+    elseif (event == "MOUSE_BUTTON_RELEASED" and arg == right_click) then
+        is_r_pressed = false
+        --OutputLogMessage("DIS\n")
+    end
+
+function pubg.canUseFindByGunName (gunName)
+    local forList = { ".45", "9mm", "5.56", "7.62" }
+
+    for i = 1, #forList do
+        local bulletType = forList[i]
+        for j = 1, #userInfo.canUse[bulletType] do
+            local item = userInfo.canUse[bulletType][j]
+            if item[1] == gunName then
+                return item
+            end
+        end
+    end
+end
+
+--[[ FormatFactory ]]
+function pubg.execOptions (gunName, options)
+
+    local gunInfo = pubg.canUseFindByGunName(gunName)
+
+    -- Temporary container
+    local ballisticConfig1 = {}
+    -- Temporary container (v3.0)
+    local ballisticConfig2 = {}
+
+    local ballisticIndex = 1
+    for i = 1, #options.ballistic do
+        local nextCount = options.ballistic[i][1]
+        if i ~= 1 then
+            nextCount = options.ballistic[i][1] - options.ballistic[i - 1][1]
+        end
+        for j = 1, nextCount do
+            ballisticConfig1[ballisticIndex] =
+                -- options.ballistic[i][2] * pubg.generalSensitivityRatio * options.ratio
+                options.ballistic[i][2] * pubg.generalSensitivityRatio * gunInfo[3]
+            ballisticIndex = ballisticIndex + 1
+        end
+    end
+
+    for i = 1, #ballisticConfig1 do
+        if i == 1 then
+            ballisticConfig2[i] = ballisticConfig1[i]
+        else
+            ballisticConfig2[i] = ballisticConfig2[i - 1] + ballisticConfig1[i]
+        end
+    end
+
+    -- Р ВµР РЏРІР‚вЂњР В¶РІР‚СћРўвЂ
+    -- for i = 1, #ballisticConfig2 do
+    --     ballisticConfig2[i] = math.ceil(ballisticConfig2[i])
+    -- end
+
+    return {
+        duration = options.interval * #ballisticConfig2, -- Time of duration
+        amount = #ballisticConfig2, -- Number of bullets
+        interval = options.interval, -- Time of each bullet
+        ballistic = ballisticConfig2, -- ballistic data
+        ctrlmodeRatio = gunInfo[4], -- Individual recoil coefficient for each gun when squatting
+        ctrlmodeRatio1 = gunInfo[5], -- Individual recoil coefficient for each gun when squatting
+
+    }
+
+end
+
+--[[ Initialization of firearms database ]]
+function pubg.init ()
+
+    -- Clean up the firearms Depot
+    local forList = { ".45", "9mm", "5.56", "7.62" }
+
+    for i = 1, #forList do
+
+        local type = forList[i]
+        local gunCount = 0
+
+        for j = 1, #userInfo.canUse[type] do
+            local gunName = userInfo.canUse[type][j][1]
+            local gunState = userInfo.canUse[type][j][2]
+
+            if gunState >= 1 then
+                -- one series
+                gunCount = gunCount + 1 -- Accumulative number of firearms configuration files
+                pubg.gunOptions[type][gunCount] = pubg[gunName](gunName) -- Get firearms data and add it to the configuration library
+
+                -- Р ВµР РЉРІР‚СћР В·РІР‚в„–Р’В¬Р С‘Р’В®РЎвЂўР В·Р вЂ¦Р’В®Р С‘РЎвЂ”РЎвЂєР ВµР РЏРІР‚В
+
+                -- all canUse
+
+
+            end
+
+        end
+
+    end
+
+  
+
+end
+
+
+
+--[[ Before automatic press gun ]]
+function pubg.auto (options)
+
+    -- Accurate aiming press gun
+    pubg.currentTime = GetRunningTime()
+    pubg.bulletIndex = math.ceil(((pubg.currentTime - pubg.startTime == 0 and {1} or {pubg.currentTime - pubg.startTime})[1]) / options.interval) + 1
+
+    if pubg.bulletIndex > options.amount then return false end
+    -- Developer Debugging Mode
+    local d = (IsKeyLockOn("scrolllock") and { (pubg.bulletIndex - 1) * pubg.xLengthForDebug } or { 0 })[1]
+    local x = math.ceil((pubg.currentTime - pubg.startTime) / (options.interval * (pubg.bulletIndex - 1)) * d) - pubg.xCounter
+    local y = math.ceil((pubg.currentTime - pubg.startTime) / (options.interval * (pubg.bulletIndex - 1)) * options.ballistic[pubg.bulletIndex]) - pubg.counter
+    -- 4-fold pressure gun mode
+    local realY = pubg.getRealY(options, y)
+    MoveMouseRelative(x, realY)
+    -- Whether to issue automatically or not
+  
+
+    -- Real-time operation parameters
+
+    pubg.xCounter = pubg.xCounter + x
+    pubg.counter = pubg.counter + y
+
+    pubg.autoSleep(IsKeyLockOn("scrolllock"))
+
+end
+
+--[[ Sleep of pubg.auto ]]
+function pubg.autoSleep (isTest)
+    local random = 0
+    if isTest then
+        -- When debugging mode is turned on, Turn off random delays in preventive testing
+        random = math.random(pubg.sleep, pubg.sleep)
+    else
+        random = math.random(pubg.sleepRandom[1], pubg.sleepRandom[2])
+    end
+    -- Sleep(10)
+    Sleep(random)
+end
+
+--[[ get real y position ]]
+function pubg.getRealY (options, y)
+    local realY = y
+local is_r_pressed = false
+local right_click = 2
+
+
+    if userInfo.aimingSettings == "ctrlmode" and  IsModifierPressed(HoldBreathMode) and not is_r_pressed  then
+        realY = realY * options.ctrlmodeRatio1 OutputLogMessage("bbb")
+    elseif userInfo.aimingSettings == "ctrlmode" and  IsModifierPressed(HoldBreathMode) and is_r_pressed then
+        realY = realY * options.ctrlmodeRatio1 OutputLogMessage("aaaaa")
+
+    elseif userInfo.aimingSettings == "ctrlmode" and not IsModifierPressed(HoldBreathMode) and not is_r_pressed then
+
+realY = realY * options.ctrlmodeRatio OutputLogMessage("fffff")
+    end
+
+    return realY
+end
+
+
+
+
+
+
+
+--[[ set current gun ]]
+function pubg.setGun (gunName)
+
+    local forList = { ".45", "9mm", "5.56", "7.62" }
+    local allCanUse_index = 0
+
+    for i = 1, #forList do
+
+        local type = forList[i]
+        local gunIndex = 0
+        local selected = false
+
+        for j = 1, #userInfo.canUse[type] do
+            if userInfo.canUse[type][j][2] >= 1 then
+                gunIndex = gunIndex + 1
+                if userInfo.canUse[type][j][1] == gunName then
+                    pubg.bulletType = type
+                    pubg.gunIndex = gunIndex
+                    pubg.allCanUse_index = allCanUse_index
+                    selected = true
+                    break
+                end
+            end
+        end
+
+        if selected then break end
+
+    end
+
+end
+
+
+
+
+
+
+
+
+
+
+--[[ G key command binding ]]
+function pubg.runCmd (cmd)
+    local switch = {
+        ["none"] = function () end,
+
+        ["UMP45"] = pubg.setGun,
+   
+        ["M416"] = pubg.setGun,
+   
+        ["off"] = function ()
+            pubg.changeIsStart(false)
+        end,
+    }
+
+    local cmdGroup = string.split(cmd, '|')
+
+    for i = 1, #cmdGroup do
+        local _cmd = cmdGroup[i]
+        if switch[_cmd] then
+            switch[_cmd](_cmd)
+        end
+    end
+end
+
+
+
+
+
+
+local is_r_pressed = false
+local right_click = 2
+
+-- save right click state
+    if (event == "MOUSE_BUTTON_PRESSED" and arg == right_click and family == "mouse" and not IsModifierPressed(HoldBreathMode)) then
+        is_r_pressed = true
+        --OutputLogMessage("EN\n")
+    elseif (event == "MOUSE_BUTTON_RELEASED" and arg == right_click and family == "mouse") then
+        is_r_pressed = false
+        --OutputLogMessage("DIS\n")
+    end
+
+ -- save right click state
+    if (event == "MOUSE_BUTTON_PRESSED" and arg == right_click and not IsModifierPressed(HoldBreathMode)) then
+        is_r_pressed = true
+        --OutputLogMessage("EN\n")
+    elseif (event == "MOUSE_BUTTON_RELEASED" and arg == right_click) then
+        is_r_pressed = false
+        --OutputLogMessage("DIS\n")
+    end
+
+--[[ Automatic press gun ]]
+function pubg.OnEvent_NoRecoil (event, arg, family)
+
+ -- save right click state
+    if (event == "MOUSE_BUTTON_PRESSED" and arg == right_click and not IsModifierPressed(HoldBreathMode)) then
+        is_r_pressed = true
+        --OutputLogMessage("EN\n")
+    elseif (event == "MOUSE_BUTTON_RELEASED" and arg == right_click) then
+        is_r_pressed = false
+        --OutputLogMessage("DIS\n")
+    end
+
+    if event == "MOUSE_BUTTON_PRESSED" and arg == 1  and family == "mouse"  then
+
+if (IsModifierPressed(HoldBreathMode) and is_r_pressed) then
+
+        if pubg.isAimingState("ADS")  then 
+            pubg.startTime = GetRunningTime() 
+
+            repeat
+
+		    OutputLogMessage("Start Shooting....\n")  OutputLogMessage("1111")
+                pubg.auto(pubg.gunOptions[pubg.bulletType][pubg.gunIndex])
+
+            until not IsMouseButtonPressed(1)
+
+            OutputLogMessage("Stop Shooting....\n")
+        end
+    end
+end
+
+    if event == "MOUSE_BUTTON_PRESSED" and arg == 1  and family == "mouse"  then
+if ( not IsModifierPressed(HoldBreathMode) and is_r_pressed) then
+        if pubg.isAimingState("ADS") then 
+            pubg.startTime = GetRunningTime() 
+            repeat
+		    OutputLogMessage("Start Shooting....\n")  OutputLogMessage("22")
+                pubg.auto(pubg.gunOptions[pubg.bulletType][pubg.gunIndex])
+            until not IsMouseButtonPressed(1)
+            OutputLogMessage("Stop Shooting....\n")
+        end
+    end
+end
+
+    if event == "MOUSE_BUTTON_PRESSED" and arg == 1  and family == "mouse"  then
+if (IsModifierPressed(HoldBreathMode) and not is_r_pressed) then
+        if pubg.isAimingState("ADS") then 
+            pubg.startTime = GetRunningTime() 
+            repeat
+		    OutputLogMessage("Start Shooting....\n")  OutputLogMessage("333")
+                pubg.auto(pubg.gunOptions[pubg.bulletType][pubg.gunIndex])
+            until not IsMouseButtonPressed(1)
+            OutputLogMessage("Stop Shooting....\n")
+        end
+    end
+end
+    if event == "MOUSE_BUTTON_RELEASED" and arg == 1 and family == "mouse"  then
+
+        pubg.counter = 0 -- Initialization counter
+        pubg.xCounter = 0 -- Initialization xCounter
+    end
+
+end
+
+-- [[ processing instruction ]]
+function pubg.modifierHandle (modifier)
+    local cmd = userInfo.G_bind[modifier]
+
+    if (cmd) then
+        pubg.runCmd(cmd) -- Execution instructions
+    end
+
+end
+
+--[[ Listener method ]]
+function OnEvent (event, arg, family)
+
+    -- OutputLogMessage("event = %s, arg = %s, family = %s\n", event, arg, family)
+    -- console.log("event = " .. event .. ", arg = " .. arg .. ", family = " .. family)
+
+    pubg.OnEvent_NoRecoil(event, arg, family)
+
+    -- Switching arsenals according to different types of ammunition
+    if event == "MOUSE_BUTTON_PRESSED" and arg >=3 and arg <= 11 and family == "mouse" then
+        local modifier = "G" .. arg
+        local list = { "lalt", "lctrl", "ralt", "rctrl", "rshift" , }
+
+        for i = 1, #list do
+            if IsModifierPressed(list[i])  then
+                modifier = list[i] .. " + " .. modifier
+                break
+            end
+        end
+
+        pubg.modifierHandle(modifier) 
+
+    end
+
+ 
+end
+
+--[[ tools ]]
+
+-- split function
+function string.split (str, s)
+    if string.find(str, s) == nil then return { str } end
+
+    local res = {}
+    local reg = "(.-)" .. s .. "()"
+    local index = 0
+    local last_i
+
+  
+
+
+    return res
+end
+
+
+--FUNCTIONS--
+
+
+
+--[[ Other ]]
+EnablePrimaryMouseButtonEvents(true) -- Enable left mouse button event reporting
+pubg.GD = GetDate -- Setting aliases
+pubg.init() -- Script initialization
+
+--[[ Script End ]]
