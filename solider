@@ -2,96 +2,96 @@
 
 local is_r_pressed = false
 local right_click = 2
------------------------------------------- [[ зЋ©е®¶и‡Єе®љд№‰ ]] ------------------------------------------
--- жЋЁиЌђиѕ№жџҐй…её®еЉ©ж–‡жЎЈпјЊиѕ№еЇ№дё‹е€—е†…е®№иї›иЎЊдї®ж”№гЂ‚
--- еЏ‚иЂѓењ°еќЂ: https://github.com/kiccer/Soldier76#%E5%88%9D%E6%AC%A1%E4%BD%BF%E7%94%A8
+------------------------------------------ [[ 玩家自定义 ]] ------------------------------------------
+-- 推荐边查阅帮助文档，边对下列内容进行修改。
+-- 参考地址: https://github.com/kiccer/Soldier76#%E5%88%9D%E6%AC%A1%E4%BD%BF%E7%94%A8
 -- It is recommended to review the help documents and modify the following contents.
 userInfo = {
 
-    -- жЇеђ¦иѕ“е‡єи°ѓиЇ•дїЎжЃЇпјЊе…ій—­еђЋеЏЇд»Ґе‡Џе°Џ CPU и®Ўз®—еЋ‹еЉ›гЂ‚е»єи®®и°ѓиЇ•ж—¶ејЂеђЇпјЊи°ѓиЇ•е®ЊжЇ•еђЋе…ій—­гЂ‚(1 - ејЂеђЇ | 0 - е…ій—­)
+    -- 是否输出调试信息，关闭后可以减小 CPU 计算压力。建议调试时开启，调试完毕后关闭。(1 - 开启 | 0 - 关闭)
     -- Whether to output debugging information, the CPU calculation pressure can be reduced after close.
     -- It is recommended to turn it on during debugging and turn it off after debugging.
     -- (0 - Disable | 1 - Enable)
     debug = 1,
 
-    -- CPU иґџиЅЅз­‰зє§пјЊе»єи®®иѕ“е…Ґ 1 ~ 30 д№‹й—ґзљ„ж•°е­—пјЊдёЌиѓЅе°ЏдєЋ 1 гЂ‚еЂји¶Ље°ЏпјЊеЋ‹жћЄж•€жћњи¶ЉеҐЅпјЊеЂји¶Ље¤§пјЊеё§ж•°и¶Љй«гЂ‚(иї‡е€†жЋ‰её§дјљз›ґжЋҐеЅ±е“ЌеЋ‹жћЄж•€жћњпјЊиЇ·ењЁдїќиЇЃеё§ж•°зљ„жѓ…е†µдё‹е‡Џе°ЏиЇҐеЂј)
+    -- CPU 负载等级，建议输入 1 ~ 30 之间的数字，不能小于 1 。值越小，压枪效果越好，值越大，帧数越高。(过分掉帧会直接影响压枪效果，请在保证帧数的情况下减小该值)
     -- CPU load level, It is recommended to enter a number between 1 and 30, cannot be less than 1.
     -- The lower the value is, the better the effect is, the higher the value, the higher the number of frames.
     -- (excessive frame dropping will directly affect the gun pressing effect, please reduce the value while ensuring the frame number)
     cpuLoad = 2,
 
-    -- зЃµж•Џеє¦и°ѓж•ґ | Sensitivity adjustment
+    -- 灵敏度调整 | Sensitivity adjustment
     sensitivity = {
-        -- ејЂй•њ | sighting mirror
+        -- 开镜 | sighting mirror
         ADS = 100,
-        -- и…°е°„ | take aim
+        -- 腰射 | take aim
         Aim = 0.55,
-        -- дєЊеЂЌ | twice scope
+        -- 二倍 | twice scope
         scopeX2 = 1.3,
-        -- дё‰еЂЌ | trebling scope
+        -- 三倍 | trebling scope
         scopeX3 = 1.3,
-        -- е››еЂЌ | quadruple scope
+        -- 四倍 | quadruple scope
         scopeX4 = 3.9,
-        -- е…­еЂЌ | sixfold scope
+        -- 六倍 | sixfold scope
         scopeX6 = 2.3,
     },
 
-    -- и‡ЄеЉЁи…°е°„пјЊдёЌдЅїз”Ёи‡ЄеЉЁи…°е°„з•™з©єпјЊдЅїз”Ёе€™и®ѕзЅ®дёєй”®з›дёЉжЊ‰й”®
+    -- 自动腰射，不使用自动腰射留空，使用则设置为键盘上按键
     -- Auto aim, leave blank without auto aim, set as the key on the keyboard when using.
     autoPressAimKey = "",
 
-    -- еђЇеЉЁжЋ§е€¶ (capslock - дЅїз”Ёе¤§е†™й”Ѓе®љй”®жЋ§е€¶ | numlock - е°Џй”®з›й”Ѓе®љй”®жЋ§е€¶ | G_bind - дЅїз”ЁжЊ‡д»¤жЋ§е€¶) | Start up control
+    -- 启动控制 (capslock - 使用大写锁定键控制 | numlock - 小键盘锁定键控制 | G_bind - 使用指令控制) | Start up control
     startControl = "G_bind",
 
-    -- зћ„е‡†и®ѕзЅ® (default - дЅїз”Ёжёёж€Џй»и®¤и®ѕзЅ® | recommend - дЅїз”Ёи„љжњ¬жЋЁиЌђи®ѕзЅ® | custom - и‡Єе®љд№‰и®ѕзЅ® | ctrlmode - дё‹и№ІжЁЎејЏ) | Aiming setting
+    -- 瞄准设置 (default - 使用游戏默认设置 | recommend - 使用脚本推荐设置 | custom - 自定义设置 | ctrlmode - 下蹲模式) | Aiming setting
     aimingSettings = "ctrlmode",
 
-    -- еЅ“ aimingSettings = "custom" пјЊйњЂи¦ЃењЁж­¤е¤„и®ѕзЅ®и‡Єе®љд№‰е€¤ж–­жќЎд»¶пјЊйЂљеёёй…Ќеђ€ IsMouseButtonPressed ж€– IsModifierPressed дЅїз”ЁпјЊдЅїз”Ёж–№жі•иЇ·жџҐй… G-series Lua API еЏ‚иЂѓж–‡жЎЈ.docx
+    -- 当 aimingSettings = "custom" ，需要在此处设置自定义判断条件，通常配合 IsMouseButtonPressed 或 IsModifierPressed 使用，使用方法请查阅 G-series Lua API 参考文档.docx
     customAimingSettings = {
-        -- ејЂй•ње€¤ж–­ 
+        -- 开镜判断 
         ADS = function() 
             return false
         end,
-        -- и…°е°„е€¤ж–­
+        -- 腰射判断
         Aim = function()
             return false 
         end,
     },
 
-    -- ж”ЇжЊЃзљ„жћЄжў°пјЊжЋ’е€—йЎєеєЏеЌіжЇй…ЌзЅ®йЎєеєЏпјЊеЏЇд»Ґи‡ЄиЎЊи°ѓж•ґгЂ‚
-    -- жЁЎејЏпјљ0 - дёЌеђЇз”Ё | 1 - еђЇз”Ё | 2 - ејЂеђЇиїћз‚№
-    -- зі»ж•°пјљжћЄжў°и‡Єиє«зі»ж•°пјЊеџєдєЋ ADS иї›иЎЊи°ѓж•ґ (ADSдёєе…Ёе±Ђзі»ж•°пјЊж­¤е¤„дёєи‡Єиє«зі»ж•°)
-    -- дё‹и№Ізі»ж•°пјљдё‹и№Іж—¶зљ„зі»ж•°пјЊеџєдєЋ ADS е’Њ и‡Єиє«зі»ж•°
+    -- 支持的枪械，排列顺序即是配置顺序，可以自行调整。
+    -- 模式：0 - 不启用 | 1 - 启用 | 2 - 开启连点
+    -- 系数：枪械自身系数，基于 ADS 进行调整 (ADS为全局系数，此处为自身系数)
+    -- 下蹲系数：下蹲时的系数，基于 ADS 和 自身系数
     canUse = {
         [".45"] = {
-            -- жћЄжў°             жЁЎејЏ         зі»ж•°        дё‹и№Ізі»ж•°
-            { "UMP45",          1,          0.99,          0.85,          1.35 }, -- еџєзЎЂй•њ + ж‰©е®№пјЊBizon (еџєзЎЂй•њеЌіеЏЇ)пјЊVector (иЎҐеЃї + еџєзЎЂй•њ + ж‰©е®№) | Reddot + MagпјЊBizon (Reddot)пјЊVector (Komp + Reddot + Mag)
-            { "Tommy Gun",      1,          1,          0.8 }, -- ж‰©е®№ | Mag
+            -- 枪械             模式         系数        下蹲系数
+            { "UMP45",          1,          0.99,          0.85,          1.35 }, -- 基础镜 + 扩容，Bizon (基础镜即可)，Vector (补偿 + 基础镜 + 扩容) | Reddot + Mag，Bizon (Reddot)，Vector (Komp + Reddot + Mag)
+            { "Tommy Gun",      1,          1,          0.8 }, -- 扩容 | Mag
         },
-            -- жћЄжў°             жЁЎејЏ         зі»ж•°        дё‹и№Ізі»ж•°
+            -- 枪械             模式         系数        下蹲系数
         ["9mm"] = {
-            { "Vector",         1,          1,          0.8 }, -- еџєзЎЂй•њ + ж‰©е®№ | Reddot + Mag
-            { "Micro UZI",      1,          1,          0.8 }, -- ж‰©е®№ | Mag
+            { "Vector",         1,          1,          0.8 }, -- 基础镜 + 扩容 | Reddot + Mag
+            { "Micro UZI",      1,          1,          0.8 }, -- 扩容 | Mag
         },
         ["5.56"] = {
-            -- жћЄжў°             жЁЎејЏ         зі»ж•°        дё‹и№Ізі»ж•°
-            { "M416",           1,          1,          0.9,          1.35 }, -- иЎҐеЃї + еџєзЎЂй•њ + з›ґи§’ + жћЄж‰ + ж‰©е®№ | Komp + Reddot + Triangular grip + Gunstock + Mag
-            { "SCAR-L",         1,          1,          0.8 }, -- иЎҐеЃї + еџєзЎЂй•њ + з›ґи§’ + ж‰©е®№ | Komp + Reddot + Triangular grip + Mag
-            { "QBZ",            1,          1,          0.8 }, -- иЎҐеЃї + еџєзЎЂй•њ + з›ґи§’ + ж‰©е®№ | Komp + Reddot + Triangular grip + Mag
-            { "G36C",           1,          1,          0.8 }, -- иЎҐеЃї + еџєзЎЂй•њ + з›ґи§’ + ж‰©е®№ | Komp + Reddot + Triangular grip + Mag
-            { "M16A4",          2,          1,          0.8 }, -- иЎҐеЃї + еџєзЎЂй•њ + жћЄж‰ + ж‰©е®№ | Komp + Reddot + Gunstock + Mag
+            -- 枪械             模式         系数        下蹲系数
+            { "M416",           1,          1,          0.9,          1.35 }, -- 补偿 + 基础镜 + 直角 + 枪托 + 扩容 | Komp + Reddot + Triangular grip + Gunstock + Mag
+            { "SCAR-L",         1,          1,          0.8 }, -- 补偿 + 基础镜 + 直角 + 扩容 | Komp + Reddot + Triangular grip + Mag
+            { "QBZ",            1,          1,          0.8 }, -- 补偿 + 基础镜 + 直角 + 扩容 | Komp + Reddot + Triangular grip + Mag
+            { "G36C",           1,          1,          0.8 }, -- 补偿 + 基础镜 + 直角 + 扩容 | Komp + Reddot + Triangular grip + Mag
+            { "M16A4",          2,          1,          0.8 }, -- 补偿 + 基础镜 + 枪托 + 扩容 | Komp + Reddot + Gunstock + Mag
         },
         ["7.62"] = {
-            -- жћЄжў°             жЁЎејЏ         зі»ж•°        дё‹и№Ізі»ж•°
-            { "AKM",            1,          1,          0.8 }, -- иЎҐеЃї + еџєзЎЂй•њ + ж‰©е®№ | Komp + Reddot + Mag
-            { "Beryl M762",     1,          1,          0.8 }, -- иЎҐеЃї + еџєзЎЂй•њ + з›ґи§’ + ж‰©е®№ | Komp + Reddot + Triangular grip + Mag
-            { "DP-28",          0,          1,          0.8 }, -- еџєзЎЂй•њ | Reddot
+            -- 枪械             模式         系数        下蹲系数
+            { "AKM",            1,          1,          0.8 }, -- 补偿 + 基础镜 + 扩容 | Komp + Reddot + Mag
+            { "Beryl M762",     1,          1,          0.8 }, -- 补偿 + 基础镜 + 直角 + 扩容 | Komp + Reddot + Triangular grip + Mag
+            { "DP-28",          0,          1,          0.8 }, -- 基础镜 | Reddot
         },
     },
 
-    -- Gй”®и‡Єе®љд№‰з»‘е®љпјЊе¤љдЅ™зљ„з»„еђ€й”®еЏЇд»Ґе€ й™¤
-    -- еЏЇз»‘е®љжЊ‡д»¤иЇ·еЏ‚иЂѓ: https://github.com/kiccer/Soldier76#%E6%8C%87%E4%BB%A4%E5%88%97%E8%A1%A8
-    -- жЊ‡д»¤з»‘е®љжј”з¤єеЏ‚иЂѓ: https://github.com/kiccer/Soldier76#g_bind-%E6%8C%87%E4%BB%A4%E7%BB%91%E5%AE%9A%E6%BC%94%E7%A4%BA
+    -- G键自定义绑定，多余的组合键可以删除
+    -- 可绑定指令请参考: https://github.com/kiccer/Soldier76#%E6%8C%87%E4%BB%A4%E5%88%97%E8%A1%A8
+    -- 指令绑定演示参考: https://github.com/kiccer/Soldier76#g_bind-%E6%8C%87%E4%BB%A4%E7%BB%91%E5%AE%9A%E6%BC%94%E7%A4%BA
     G_bind = {
         -- G
         ["G3"] = "",
@@ -163,7 +163,7 @@ userInfo = {
         ["rshift + G9"] = "",
         ["rshift + G10"] = "",
         ["rshift + G11"] = "",
-        -- йќћйј ж ‡Gй”®пјЊеЏЇд»ҐдЅїй”®з›ж€–иЂ…иЂіжњєдёЉзљ„Gй”®пјЊй»и®¤дЅїз”Ёй”®з›Gй”®пјЊиЇ·зЎ®дїќдЅ дЅїз”Ёзљ„жЇеЏЇзј–зЁ‹зљ„зЅ—жЉЂй”®з› | F1~12 (Non-mouse G-key)
+        -- 非鼠标G键，可以使键盘或者耳机上的G键，默认使用键盘G键，请确保你使用的是可编程的罗技键盘 | F1~12 (Non-mouse G-key)
         ["F1"] = "",
         ["F2"] = "",
         ["F3"] = "",
@@ -550,7 +550,7 @@ function pubg.execOptions (gunName, options)
         end
     end
 
-    -- еЏ–ж•ґ
+    -- 取整
     -- for i = 1, #ballisticConfig2 do
     --     ballisticConfig2[i] = math.ceil(ballisticConfig2[i])
     -- end
@@ -587,7 +587,7 @@ function pubg.init ()
                 pubg.gun[type][gunCount] = gunName -- Adding available firearms to the Arsenal
                 pubg.gunOptions[type][gunCount] = pubg[gunName](gunName) -- Get firearms data and add it to the configuration library
 
-                -- еЌ•з‹¬и®ѕзЅ®иїћеЏ‘
+                -- 单独设置连发
                 pubg.gunOptions[type][gunCount].autoContinuousFiring = ({ 0, 0, 1 })[
                     math.max(1, math.min(gunState + 1, 3))
                 ]
@@ -1084,9 +1084,9 @@ function table.forEach (t, c)
 end
 
 --[[
-    * ж‰“еЌ° table
-    * @param  {any} val     дј е…ҐеЂј
-    * @return {str}         ж јејЏеЊ–еђЋзљ„ж–‡жњ¬
+    * 打印 table
+    * @param  {any} val     传入值
+    * @return {str}         格式化后的文本
 ]]
 function table.print (val)
 
@@ -1094,7 +1094,7 @@ function table.print (val)
         _indent = _indent or 1
         keyType = keyType or "string"
         local res = ""
-        local indentStr = "     " -- зј©иї›з©єж ј
+        local indentStr = "     " -- 缩进空格
         local indent = string.rep(indentStr, _indent)
         local end_indent = string.rep(indentStr, _indent - 1)
         local putline = function (...)
@@ -1146,13 +1146,13 @@ function table.print (val)
 
             putline("}, ")
         elseif type(val) == "string" then
-            val = string.gsub(val, "\a", "\\a") -- е“Ќй“ѓ(BEL)
-            val = string.gsub(val, "\b", "\\b") -- йЂЂж ј(BS),е°†еЅ“е‰ЌдЅЌзЅ®з§»е€°е‰ЌдёЂе€—
-            val = string.gsub(val, "\f", "\\f") -- жЌўйЎµ(FF),е°†еЅ“е‰ЌдЅЌзЅ®з§»е€°дё‹йЎµејЂе¤ґ
-            val = string.gsub(val, "\n", "\\n") -- жЌўиЎЊ(LF),е°†еЅ“е‰ЌдЅЌзЅ®з§»е€°дё‹дёЂиЎЊејЂе¤ґ
-            val = string.gsub(val, "\r", "\\r") -- е›ћиЅ¦(CR),е°†еЅ“е‰ЌдЅЌзЅ®з§»е€°жњ¬иЎЊејЂе¤ґ
-            val = string.gsub(val, "\t", "\\t") -- ж°ґе№іжЊ‡ж ‡(HT),(и°ѓз”Ёдё‹дёЂдёЄTABдЅЌзЅ®)
-            val = string.gsub(val, "\v", "\\v") -- ећ‚з›ґжЊ‡ж ‡(VT)
+            val = string.gsub(val, "\a", "\\a") -- 响铃(BEL)
+            val = string.gsub(val, "\b", "\\b") -- 退格(BS),将当前位置移到前一列
+            val = string.gsub(val, "\f", "\\f") -- 换页(FF),将当前位置移到下页开头
+            val = string.gsub(val, "\n", "\\n") -- 换行(LF),将当前位置移到下一行开头
+            val = string.gsub(val, "\r", "\\r") -- 回车(CR),将当前位置移到本行开头
+            val = string.gsub(val, "\t", "\\t") -- 水平指标(HT),(调用下一个TAB位置)
+            val = string.gsub(val, "\v", "\\v") -- 垂直指标(VT)
             putline("\"", val, "\", ")
         elseif type(val) == "boolean" then
             putline(val and "true, " or "false, ")
