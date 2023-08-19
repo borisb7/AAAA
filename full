@@ -1,0 +1,80 @@
+if (event == "MOUSE_BUTTON_PRESSED" and arg == 1 and not IsKeyLockOn(full_mode_key) ) then
+full_mode = false
+elseif IsKeyLockOn(full_mode_key) then
+full_mode = true 
+end
+
+
+
+
+if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and not IsModifierPressed("ctrl") and akm and not full_mode) then
+AKM() OutputLogMessage("aaaaaaa")
+end
+
+if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and not IsModifierPressed("ctrl") and akm and  full_mode) then
+AKM_C() OutputLogMessage("acacaca")
+end
+
+if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and IsModifierPressed("ctrl") and akm and not full_mode) then
+AKM_CC() OutputLogMessage("ccccccc")
+end
+
+if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and IsModifierPressed("ctrl") and akm and  full_mode) then
+AKM_FC() OutputLogMessage("fcfcfcfcfcf")
+end
+
+
+
+if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and not IsModifierPressed("ctrl")  and m416 and  is_r_pressed  and not IsModifierPressed(hold_breath_key) and not full_mode) then
+M416() OutputLogMessage("MMMMMMM")   --no shift rbm--
+end
+
+if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and not IsModifierPressed("ctrl")  and m416 and not  is_r_pressed   and  IsModifierPressed(hold_breath_key) and not full_mode) then
+M416() OutputLogMessage("MSMSMSMS")   --shift before rbm start recoil--
+end
+
+if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and not IsModifierPressed("ctrl")  and m416 and  is_r_pressed   and  IsModifierPressed(hold_breath_key) and not full_mode) then
+M416() OutputLogMessage("MSHMSHMSH")   --shift after rbm recoil--
+end
+
+										--Full--
+if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and not IsModifierPressed("ctrl")  and m416 and  is_r_pressed  and not IsModifierPressed(hold_breath_key) and  full_mode) then
+M416_C_VF() OutputLogMessage("McMCMCM")   --no shift rbm--
+end
+
+if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and not IsModifierPressed("ctrl")  and m416 and not  is_r_pressed   and  IsModifierPressed(hold_breath_key)  and  full_mode) then
+M416_C_VF() OutputLogMessage("McSMCSMCM")  --shift before rbm start recoil--
+end
+
+if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and not IsModifierPressed("ctrl")  and m416 and  is_r_pressed   and  IsModifierPressed(hold_breath_key) and  full_mode) then
+M416_C_VF() OutputLogMessage("McshMCshMCM")   --shift after rbm recoil--
+end 
+
+
+										--Crouch--
+if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and  IsModifierPressed("ctrl")  and m416 and not full_mode) then
+M416_CC() OutputLogMessage("BMBMBMM")
+end
+if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and  IsModifierPressed("ctrl")  and m416 and  full_mode) then
+M416_FC() OutputLogMessage("FmFmFmM")
+end
+
+
+
+if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and not IsModifierPressed("ctrl")  and beryl and not full_mode) then
+BERYL() OutputLogMessage("BBBBBBBBB")
+end
+
+if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and not IsModifierPressed("ctrl")  and beryl and  full_mode) then
+BERYL_C_VF() OutputLogMessage("FBFBFBFBF")
+end
+
+if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and  IsModifierPressed("ctrl")  and beryl and not full_mode) then
+BERYL_C() OutputLogMessage("BCBCBCB")
+end
+
+if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and  IsModifierPressed("ctrl")  and beryl and  full_mode) then
+BERYL_FC() OutputLogMessage("FBCFBCf")
+end
+
+scope = 4
