@@ -1,3 +1,100 @@
+
+function OnEvent(event, arg)
+  OutputLogMessage("event = %s, arg = %d\n", event, arg)
+  if (event == "PROFILE_ACTIVATED") then
+        EnablePrimaryMouseButtonEvents(true)
+  end
+    while true do
+      if IsKeyLockOn("capslock") then
+        gunmode = "beryl"
+      else
+        gunmode = "m416"
+      end
+      if IsKeyLockOn("scrolllock") then
+        triple = true
+      else
+        triple = false
+      end
+      if IsKeyLockOn("numlock") then
+        parcali = true
+      else
+        parcali = false
+      end
+      
+
+
+------------------------------------------------------------------------------------------------------
+CeJian = false
+-- 是否开启快速开镜，左键舔包不下压（压枪方式:先按住鼠标右键再按左键）
+quickfire = false 
+-- 同一个侧键按第二次关闭宏
+drcgb = false		
+-- 满配模式开关啊(不需要满配模式就设置为 false )
+full_mode = true
+-- 四倍模式开关啊(不需要四倍模式就设置为 false )
+mode4X_nf = true
+-- 屏息模式开关啊(不需要屏息模式就设置为 false )
+hold_breath_mode = true
+-- 自动换蛋（连续打完40发子弹自动换子弹的）
+auto_reloading = true
+
+
+fz_mode = false
+
+if fz_mode == false then
+  if not IsKeyLockOn(mode_switch_key) then
+      if IsKeyLockOn(full_mode_key) and full_mode then
+         return "basic"; 
+      else
+         return "full"  
+      end
+  end 
+  if mode4X_nf then
+      if IsKeyLockOn(full_mode_key) and full_mode then
+        return "quadruple"; 
+      else
+        return "fullof4x"; 
+      end
+  else
+    if IsKeyLockOn(mode_switch_key) then
+        if IsKeyLockOn(full_mode_key) and full_mode then
+           return "basic"; 
+        else
+           return "full" 
+        end
+     end
+  end
+elseif fz_mode == true then
+  if not IsKeyLockOn(mode_switch_key) then
+      if IsKeyLockOn(full_mode_key) and full_mode then
+         return "full"; 
+      else
+         return "basic" 
+      end
+  end
+  if mode4X_nf then
+      if IsKeyLockOn(full_mode_key) and full_mode then
+        return "fullof4x"; 
+      else
+        return "quadruple";
+      end
+  else
+      if IsKeyLockOn(mode_switch_key) then
+          if IsKeyLockOn(full_mode_key) and full_mode then
+             return "full"; 
+          else
+             return "basic" 
+          end
+      end
+   end
+end
+end
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
 if (event == "MOUSE_BUTTON_PRESSED" and arg == 1 and not IsKeyLockOn(full_mode_key) ) then
 full_mode = false
 elseif IsKeyLockOn(full_mode_key) then
@@ -61,20 +158,5 @@ end
 
 
 
-if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and not IsModifierPressed("ctrl")  and beryl and not full_mode) then
-BERYL() OutputLogMessage("BBBBBBBBB")
-end
-
-if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and not IsModifierPressed("ctrl")  and beryl and  full_mode) then
-BERYL_C_VF() OutputLogMessage("FBFBFBFBF")
-end
-
-if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and  IsModifierPressed("ctrl")  and beryl and not full_mode) then
-BERYL_C() OutputLogMessage("BCBCBCB")
-end
-
-if (IsMouseButtonPressed(1  ) and IsMouseButtonPressed(3  ) and  IsModifierPressed("ctrl")  and beryl and  full_mode) then
-BERYL_FC() OutputLogMessage("FBCFBCf")
-end
 
 scope = 4
