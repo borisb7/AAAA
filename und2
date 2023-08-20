@@ -672,6 +672,16 @@ function pubg.getRealY (options, y)
         realY = y * userInfo.sensitivity.Aim * pubg.generalSensitivityRatio
     end
 
+
+--if userInfo.aimingSettings == "ctrlmode" and full_mode then
+
+--pubg.findInSeries (cmd) = "next"
+--end
+
+--if userInfo.aimingSettings == "ctrlmode" and not full_mode then
+        --pubg.findInSeries (cmd) = "last"
+    --end
+
  if userInfo.aimingSettings == "ctrlmode" and full_mode then
 if pubg.gunIndex < #pubg.gun[pubg.bulletType] then
             pubg.gunIndex = pubg.gunIndex + 1
