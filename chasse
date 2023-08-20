@@ -1,4 +1,15 @@
+	if event == "MOUSE_BUTTON_PRESSED" and arg == 1 and pubg.G1 then
+            repeat
+		    OutputLogMessage("Start Shooting....\n")
+                pubg.auto(pubg.gunOptions[pubg.bulletType][pubg.gunIndex])
+            OutputLogMessage("Stop Shooting....\n")
+		SetMKeyState(1, "kb")
+until not IsMouseButtonPressed(1)
+	end
 
+end
+
+-------------------------------------------------------
 --[[ get real y position ]]
 function pubg.getRealY (options, y)
 	local realY = y
