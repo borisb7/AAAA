@@ -1,0 +1,70 @@
+
+--[[ get real y position ]]
+function pubg.getRealY (options, y)
+	local realY = y
+
+	if pubg.isAimingState("ADS") then
+		realY = y * pubg[pubg.scope_current]
+	elseif pubg.isAimingState("Aim") then
+		realY = y * userInfo.sensitivity.Aim * pubg.generalSensitivityRatio
+	end
+
+	if userInfo.aimingSettings == "ctrlmode" and IsModifierPressed("lctrl") then
+		realY = realY * options.ctrlmodeRatio
+	end
+
+	return math.round(realY)
+end
+
+
+
+
+
+
+
+--[[ 随机偏移 ]]
+function pubg.randomOffset (val, offsetScopePx)
+	local offsetScope = (offsetScopePx or 10) / 1080 * 65535
+
+	return math.random(
+		math.ceil(val - offsetScope),
+		math.ceil(val + offsetScope)
+	)
+end
+
+
+--[[ Automatic press gun ]]
+function pubg.OnEvent_NoRecoil (event, arg, family)
+	if event == "MOUSE_BUTTON_PRESSED" and arg == 1 and family == "mouse" then
+		if not pubg.runStatus() then return false end
+		if userInfo.aimingSettings ~= "default" and not IsMouseButtonPressed(3) then
+			pubg.PressOrRelaseAimKey(true)
+		end
+		if pubg.isAimingState("ADS") or pubg.isAimingState("Aim") then
+			pubg.startTime = GetRunningTime()
+			pubg.G1 = true
+			SetMKeyState(1, "kb")
+		end
+	end
+
+	if event == "MOUSE_BUTTON_RELEASED" and arg == 1 and family == "mouse" then
+		pubg.PressOrRelaseAimKey(false)
+		pubg.G1 = false
+		pubg.counter = 0 -- Initialization counter
+		pubg.xCounter = 0 -- Initialization xCounter
+		pubg.SetRandomseed() -- Reset random number seeds
+	end
+
+	if event == "M_PRESSED" and arg == 1 and pubg.G1 then
+		pubg.auto(pubg.gunOptions[pubg.bulletType][pubg.gunIndex])
+		SetMKeyState(1, "kb")
+	end
+end
+
+
+
+-- 四舍五入 #170
+function math.round (num, digit)
+    local decimalPlaces = 10 ^ (digit or 0)
+    return math.floor((num * decimalPlaces * 10 + 5) / 10) / decimalPlaces
+end
