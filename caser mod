@@ -16,14 +16,14 @@ userInfo = {
   -- aimingSettings = "ctrlmode",
 
 --   customAimingSettings = {
-        ADS = function() 
-            return false
-        end,
+       -- ADS = function() 
+        --    return false
+        --end,
 
-        Aim = function()
-            return false 
-        end,
-    },
+       -- Aim = function()
+        --    return false 
+        --end,
+   -- },
   
 
     customAimingSettings = {
