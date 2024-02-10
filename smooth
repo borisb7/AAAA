@@ -1,0 +1,2053 @@
+					
+local full_mode = true
+local full_mode_key = "Capslock"
+local is_r_pressed = false
+local right_click = 2
+
+userInfo = {
+																										
+																						
+								 
+    debug = 0,
+
+																								   
+																											   
+																																	   
+    cpuLoad = 2,
+
+    sensitivity = {
+
+        ADS = 90.1,
+        Aim = 0.55,
+        scopeX2 = 1.3,
+        scopeX3 = 1.3,
+        scopeX4 = 3.9,
+        scopeX6 = 2.3,
+    },
+
+																						 
+    autoPressAimKey = "",
+
+    startControl = "G_bind",
+
+    aimingSettings = "ctrlmode",
+    
+    customAimingSettings = {
+        ADS = function()
+              return false       
+       end,
+
+        Aim = function()
+          return false
+        end,
+    },
+
+
+
+     canUse = {
+        ["AUG"] = {                         --0.96        0.82 -0.84           1.38
+            
+--BEST            { "AUG_F",          1,          1,          0.80,          1.34 }, 	-- 1,          0.99,          0.85,          1.35 
+                        { "AUG_F",          1,          1.11,          0.79,          1.32 }, 	-- 1,          0.99,          0.85,          1.35 
+                   --     { "AUG_FLL",          1,          1.01,          0.81,          1.34 }, 	-- 1,          0.99,          0.85,          1.35 
+
+
+            { "AUG_B",          1,          1.35,          0.81,          1.35 },
+          --  { "AUG_fr",          1,          0.99,          0.83,          1.35 },
+                  --      { "AUG_B",          1,          1.2,          0.85,          1.35 },
+
+			},
+			
+	  ["Famas"] = {
+            { "Famas_F",           1,          1,          0.80,          1.35 },
+            { "Famas_B",           1,          5,          0.77,          1.35 },
+            
+			},
+			
+	 ["P90"] = {
+            { "P90_F",           1,          1,          0.75,          1.35 },
+            { "P90_B",           1,          1.93,          0.77,          1.35 },
+            
+			},	
+			
+		 ["MG3"] = {
+            { "MG3_F",           1,          1,          0.75,          1.35 },
+            { "MG3_B",           1,          1.93,          0.77,          1.35 },
+            
+			},	
+						
+        ["Beryl"] = {
+            { "Beryl_F",           1,          3.1,          0.82,          1.35 },
+            { "Beryl_B",           1,          5,          0.84,          1.35 },
+            
+			},
+			
+			
+        ["9mm"] = {
+            { "Vector",         1,          1,          0.8 },
+            { "Micro UZI",      1,          1,          0.8 },
+            --           { "AUG_F",          1,          1.4,          0.88,          1.38 },
+                        --{ "M416_F1",           1,          1.4,          0.82,          1.35 },
+ 
+			},
+
+        ["M416"] = {
+        
+                    { "M416_F",           1,          0.94,          0.85,          1.35 },
+
+           -- RESERVE    { "M416_F",           1,          0.98,          0.83,          1.35 },
+
+           -- LAST  { "M416_F",           1,          1,          0.82,          1.35 },
+           
+                                                       --0.82
+            { "M416_B",           1,          1,          0.75,          1.35 },
+
+      --  OR    { "M416_B",           1,          1,          0.8,          1.35 },
+      
+      
+			},
+			
+
+
+        ["5.56"] = {
+        
+            { "M249",          1,          1.04,          0.6 },
+            { "SCAR-L",         1,          2,          0.8 },
+            { "QBZ",            1,          1,          0.8 },
+            { "G36C",           1,          1,          0.8 },
+            { "M16A4",          2,          1,          0.8 },
+			},
+        ["AKM"] = {
+                    { "AKM_F",           1,          1.18,          0.75,          1.35 },
+
+       --     { "AKM_FLAST",            1,          1,           0.8,          1.35},
+            { "AKM_B",            1,          1.3,           0.75,          1.35},
+              --          { "AKM_FR",            1,          1,           0.8,          1.35},
+
+			},
+        ["7.62"] = {
+		{ "Groza",          1,          3.6,          0.74 },
+
+		{ "DP-28",          0,          1,          0.8 },
+        },
+    },
+
+
+    G_bind = {
+
+        ["G3"] = "",
+        ["G4"] = "AKM",
+        ["G5"] = "M416",
+        ["G6"] = "off",
+        ["G7"] = "9mm",
+        ["G8"] = "5.56",
+        ["G9"] = ".45",
+        ["G10"] = "",
+        ["G11"] = "",
+
+         -- lalt + G
+        ["lalt + G3"] = "",
+        ["lalt + G4"] = "Beryl",
+        ["lalt + G5"] = "AUG",
+        ["lalt + G6"] = "",
+        ["lalt + G7"] = "last",
+        ["lalt + G8"] = "next",
+        ["lalt + G9"] = "",
+        ["lalt + G10"] = "",
+        ["lalt + G11"] = "",
+
+        ["lctrl + G3"] = "",
+        ["lctrl + G4"] = "",
+        ["lctrl + G5"] = "M249",
+        ["lctrl + G6"] = "",
+        ["lctrl + G7"] = "",
+        ["lctrl + G8"] = "",
+        ["lctrl + G9"] = "",
+        ["lctrl + G10"] = "",
+        ["lctrl + G11"] = "",
+
+        ["lshift + G3"] = "",
+        ["lshift + G4"] = "fast_lick_box",
+        ["lshift + G5"] = "fast_pickup",
+        ["lshift + G6"] = "",
+        ["lshift + G7"] = "",
+        ["lshift + G8"] = "",
+        ["lshift + G9"] = "",
+        ["lshift + G10"] = "",
+        ["lshift + G11"] = "",
+
+        ["ralt + G3"] = "",
+        ["ralt + G4"] = "MG3",
+        ["ralt + G5"] = "P90",
+        ["ralt + G6"] = "",
+        ["ralt + G7"] = "",
+        ["ralt + G8"] = "",
+        ["ralt + G9"] = "",
+        ["ralt + G10"] = "",
+        ["ralt + G11"] = "",
+
+        ["rctrl + G3"] = "",
+        ["rctrl + G4"] = "Groza",
+        ["rctrl + G5"] = "Famas",
+        ["rctrl + G6"] = "",
+        ["rctrl + G7"] = "",
+        ["rctrl + G8"] = "",
+        ["rctrl + G9"] = "",
+        ["rctrl + G10"] = "",
+        ["rctrl + G11"] = "",
+
+        ["rshift + G3"] = "",
+        ["rshift + G4"] = "",
+        ["rshift + G5"] = "",
+        ["rshift + G6"] = "fast_discard",
+        ["rshift + G7"] = "",
+        ["rshift + G8"] = "",
+        ["rshift + G9"] = "",
+        ["rshift + G10"] = "",
+        ["rshift + G11"] = "",
+
+        ["F1"] = "",
+        ["F2"] = "",
+        ["F3"] = "",
+        ["F4"] = "",
+        ["F5"] = "",
+        ["F6"] = "",
+        ["F7"] = "",
+        ["F8"] = "",
+        ["F9"] = "",
+        ["F10"] = "",
+        ["F11"] = "",
+        ["F12"] = "",
+    },
+}
+
+
+
+																
+pubg = {
+    gun = {
+        ["AUG"] = {},
+        ["Famas"] = {},
+        ["P90"] = {},
+        ["MG3"] = {},
+        ["Beryl"] = {},
+        ["9mm"] = {},
+        ["M416"] = {},
+        ["5.56"] = {},
+        ["AKM"] = {},
+        ["7.62"] = {},
+    },
+    gunOptions = {
+        ["AUG"] = {},
+        ["Famas"] = {},
+        ["P90"] = {},
+        ["MG3"] = {},
+        ["Beryl"] = {},
+        ["9mm"] = {},
+        ["M416"] = {},
+        ["5.56"] = {},
+        ["AKM"] = {},
+        ["7.62"] = {},
+    },
+    allCanUse = {},
+    allCanUse_index = 1,
+    allCanUse_count = 0,
+    bulletType = "",
+    gunIndex = 1,
+    counter = 0,
+    xCounter = 0,
+    sleep = userInfo.cpuLoad,
+    sleepRandom = { userInfo.cpuLoad, userInfo.cpuLoad + 5 },
+    startTime = 0,
+    prevTime = 0,
+    scopeX1 = 1,
+    scopeX2 = userInfo.sensitivity.scopeX2,
+    scopeX3 = userInfo.sensitivity.scopeX3,
+    scopeX4 = userInfo.sensitivity.scopeX4,
+    scopeX6 = userInfo.sensitivity.scopeX6,
+    scope_current = "scopeX1",
+    generalSensitivityRatio = userInfo.sensitivity.ADS / 100,
+    isEffective = "2021-05-01 00:00:00",
+    isStart = false,
+    G1 = false,
+    currentTime = 0,
+    bulletIndex = 0,
+}
+
+  --pubg.xLengthForDebug = pubg.generalSensitivityRatio * 10
+
+pubg.xLengthForDebug = pubg.generalSensitivityRatio * 60
+
+pubg.renderDom = {
+    switchTable = "",
+    separator = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n",
+    combo_key = "G-key",
+    cmd = "cmd",
+    autoLog = "No operational data yet.\n",
+}
+
+
+function pubg.isAimingState (mode)
+    local switch = {
+
+        ["ADS"] = function()
+            if userInfo.aimingSettings == "recommend" then
+                return IsMouseButtonPressed(3) and not IsModifierPressed("lalt")
+            elseif userInfo.aimingSettings == "default" then
+                return not IsModifierPressed("lshift") and not IsModifierPressed("lalt")
+ elseif userInfo.aimingSettings == "ctrlmode" then
+               return IsMouseButtonPressed(3) and not IsModifierPressed("lalt")
+            elseif userInfo.aimingSettings == "custom" then
+                return userInfo.customAimingSettings.ADS()
+            end
+        end,
+
+        ["Aim"] = function()
+            if userInfo.aimingSettings == "recommend" then
+                if userInfo.autoPressAimKey == "" then
+                    return IsModifierPressed("lctrl")
+                else
+                    return not IsModifierPressed("lalt") and not IsModifierPressed("lalt")
+                end
+            elseif userInfo.aimingSettings == "default" then
+                return IsMouseButtonPressed(3)
+         elseif userInfo.aimingSettings == "ctrlmode" then
+          return false
+            elseif userInfo.aimingSettings == "custom" then
+                return userInfo.customAimingSettings.Aim()
+            end
+        end,
+
+    }
+
+    return switch[mode]()
+end
+
+pubg["M16A4"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 108,
+        ballistic = {
+            {1, 0},
+            {5, 20},
+            {40, 24},
+        }
+    })
+
+end
+
+pubg["SCAR-L"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 96,
+        ballistic = {
+            {1, 0},
+            {2, 30},
+            {5, 20},
+            {10, 24},
+            {15, 28},
+            {40, 32},
+        }
+    })
+
+end
+
+
+pubg["MG3_F"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 63,
+        ballistic = {
+            {1, 0},
+            {15, 75},
+             {30, 55},   
+                          {50, 45},        
+            {75, 55},
+
+        }
+    })
+
+end
+
+pubg["MG3_B"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 63,
+        ballistic = {
+            {1, 34},
+            {2, 35},
+            {4, 35},
+            {10, 65},
+            {20, 92},
+            {25, 50},
+            {40, 45},
+            {50, 45},
+
+        }
+    })
+
+end
+
+
+pubg["Groza"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 86,
+        ballistic = {
+            {1, 10},
+            {2, 40},
+            {3, 30},
+            {5, 35},
+            {10, 40},
+            {15, 42},
+            {30, 48},
+            {42, 49},
+        }
+    })
+
+end
+
+pubg["P90_B"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 65,
+        ballistic = {
+            {1, 34},
+            {2, 35},
+            {4, 35},
+            {10, 72},
+            {15, 92},
+                        {20, 72},
+            {25, 50},
+            {40, 47},
+            {50, 52},
+
+        }
+    })
+
+end
+
+pubg["P90_FS"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 63,
+        ballistic = {
+            {1, 34},
+            {2, 35},
+            {4, 35},
+            {10, 65},
+            {20, 92},
+            {25, 50},
+            {40, 45},
+            {50, 45},
+
+        }
+    })
+
+end
+
+
+pubg["P90_F"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 65,
+        ballistic = {
+            {1, 34},
+            {2, 35},
+            {4, 35},
+            {10, 72},
+            {15, 92},
+                        {20, 72},
+            {25, 50},
+            {40, 47},
+            {50, 52},
+
+        }
+    })
+
+end
+
+pubg["Famas_B"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 70,
+        ballistic = {
+            {1, 0},
+            {2, 19},
+            {5, 18},
+            {10, 20},
+            {15, 30},
+            {30, 32},
+        }
+    })
+
+end
+
+pubg["Famas_F"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 85},
+            {2, 85},
+            {4, 75},
+            {10, 125},
+            {15, 142},
+            {25, 139},
+            {30, 142},
+            {42, 142},
+
+        }
+    })
+
+end
+
+
+pubg["M249S"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 96,
+        ballistic = {
+            {1, 100},
+            {2, 120},
+            {5, 120},
+            {10, 124},
+            {15, 80},
+            {40, 80},
+                        {75, 80},
+        }
+    })
+
+end
+
+
+pubg["M249ЫЫ"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 79,
+        ballistic = {
+            {1, 40},
+            {2, 40},
+            {8, 100},
+            {15, 124},
+            {40, 60},
+                        {75, 70},
+                                                {150, 70},
+
+        }
+    })
+
+end
+
+
+pubg["M249A"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 79,
+        ballistic = {
+            {1, 40},
+            {2, 40},
+            {8, 100},
+            {12, 114},
+            
+                        {18, 84},
+
+            {40, 60},
+                        {75, 70},
+                                                {150, 70},
+
+        }
+    })
+
+end
+
+
+pubg["M249І"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 79,
+        ballistic = {
+            {1, 30},
+            {2, 30},
+            {8, 90},
+            {12, 114},
+            
+                        {18, 84},
+
+            {40, 60},
+                        {75, 70},
+                                                {150, 70},
+
+        }
+    })
+
+end
+
+pubg["M249"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 79,
+        ballistic = {
+            {1, 35},
+            {2, 45},
+            {8, 95},
+            {12, 114},
+            
+                        {18, 84},
+
+            {40, 60},
+                        {75, 70},
+                                                {150, 70},
+
+        }
+    })
+
+end
+pubg["Beryl_B"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 0},
+            {2, 41},
+            {3, 34},
+            {5, 38},
+            {10, 37},
+            {15, 44},
+            {20, 44},
+            {25, 47},
+            {30, 51},
+            {35, 52},
+            {42, 50},
+                        {62, 51},
+        }
+    })
+
+end
+
+
+
+pubg["Beryl_F1"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 86,
+        ballistic = {
+            {1, 10},
+            {2, 40},
+            {3, 30},
+            {5, 35},
+            {10, 38},
+            {15, 42},
+            {18, 42},
+            {22, 53},
+            {25, 55},
+            {30, 49},
+            {42, 49},
+        }
+    })
+
+end
+
+pubg["Beryl_F"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 86,
+        ballistic = {
+            {1, 10},
+            {2, 40},
+            {3, 30},
+            {5, 35},
+            {10, 40},
+            {15, 42},
+            {30, 48},
+            {42, 49},
+        }
+    })
+
+end
+
+
+pubg["Beryl_F2"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 86,
+        ballistic = {
+            {1, 0},
+            {2, 40},
+            {3, 40},
+            {5, 40},
+            {10, 40},
+            {15, 42},
+            {30, 48},
+            {42, 50},
+        }
+    })
+
+end
+
+
+pubg["Tommy Gun"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 84,
+        ballistic = {
+            {1, 0},
+            {3, 20},
+            {6, 21},
+            {8, 24},
+            {10, 30},
+            {15, 40},
+            {50, 45},
+        }
+    })
+
+end
+
+pubg["G36C"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 86,
+        ballistic = {
+            {1, 0},
+            {2, 40},
+            {5, 16},
+            {10, 26},
+            {15, 30},
+            {20, 34},
+            {40, 36},
+        }
+    })
+
+end
+
+pubg["Vector"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 55,
+        ballistic = {
+            {1, 0},
+            {6, 16},
+            {10, 20},
+            {13, 24},
+            {15, 28},
+            {20, 32},
+            {33, 34},
+        }
+    })
+
+end
+
+pubg["Micro UZI"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 46,
+        ballistic = {
+            {1, 0},
+            {2, 13},
+            {10, 12},
+            {15, 20},
+            {35, 30},
+        }
+    })
+
+end
+
+pubg["AUG_F1"] = function (gunName) --65ADS
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 70},
+            {2, 75},
+            {4, 70},
+            {10, 108},
+            {15, 125},
+            {25, 135},
+            {30, 136},
+            {40, 135},
+            {50, 135},
+            {60, 135},
+        }
+    })
+
+end
+
+pubg["AUG_FS"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 70},
+            {2, 75},
+            {4, 70},
+            {10, 108},
+            {15, 125},
+            {25, 125},
+            {30, 126},
+            {42, 126},
+
+        }
+    })
+
+end
+											 
+
+pubg["AUG_FS"] = function (gunName) --NEW
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 85},
+            {2, 85},
+            {4, 75},
+            {10, 110},
+            {15, 141},
+            {25, 141},
+            {30, 152},
+            {42, 152},
+
+        }
+    })
+
+end
+								  
+pubg["AUG_FSA"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 70},
+            {2, 60},
+            {4, 50},
+            {10, 101},
+            {15, 120},
+            {25, 120},
+            {30, 123},
+            {42, 123},
+
+        }
+    })
+
+end
+
+
+
+pubg["AUG_FLLL"] = function (gunName) --NERFED1
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 85},
+            {2, 85},
+            {4, 75},
+            {10, 112},
+            {15, 136},    --139
+            {25, 139},
+            {30, 142},
+            {42, 141},  --142
+
+        }
+    })
+
+end
+
+
+pubg["AUG_FS"] = function (gunName) --NERFED
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 85},
+            {2, 85},
+            {4, 75},
+            {10, 112},
+            {15, 137},
+            {25, 140},
+            {30, 142},
+            {42, 141},
+
+        }
+    })
+
+end
+
+
+
+pubg["AUG_FBEST"] = function (gunName) --NERFED
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 85},
+            {2, 85},
+            {4, 75},
+            {10, 112},
+
+            {15, 135},
+                        {17, 136},            
+            {20, 137},
+                        {23, 142},
+
+            {25, 146},
+                        {28, 148},
+
+            {30, 145},
+                        {33, 142},
+
+            {35, 142},
+            {42, 142},
+
+        }
+    })
+
+
+end
+
+
+pubg["AUG_FS"] = function (gunName) --NERFED
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 85},
+            {2, 85},
+            {4, 75},
+            {10, 112},
+
+            {15, 135},
+                        {17, 136},            
+            {20, 137},
+                        {23, 143},
+
+            {25, 147},
+                        {28, 150},
+
+            {30, 137},
+                        {33, 133},
+
+            {35, 135},
+            {42, 135},
+
+        }
+    })
+
+
+end
+
+pubg["AUG_FS"] = function (gunName) --NERFED
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 85},
+            {2, 85},
+            {4, 75},
+            {10, 112},
+
+            {15, 135},
+                        {17, 136},            
+            {20, 137},
+                        {23, 142},
+
+            {25, 147},
+                        {28, 149},
+
+            {30, 140},
+                        {33, 133},
+
+            {35, 134},
+            {42, 133},
+
+        }
+    })
+
+
+end
+
+								 
+
+pubg["AUG_FCOPY"] = function (gunName) --NERFED
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 85},
+            {2, 85},
+            {4, 75},
+            {10, 112},
+					 
+
+            {15, 135},
+                        {17, 136},            
+            {20, 137},
+                        {23, 140},
+
+            {25, 145},
+                        {28, 147},
+
+            {30, 143},
+                        {33, 138},
+
+            {35, 138},
+            {42, 138},
+
+        }
+    })
+
+end
+
+
+pubg["AUG_FLAST1"] = function (gunName) --NERFED
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 85},
+            {2, 85},
+            {4, 75},
+            {10, 112},
+
+            {15, 135},
+                        {17, 136},            
+            {20, 137},
+                        {23, 140},
+
+            {25, 145},
+                        {28, 147},
+
+            {30, 142},
+                        {33, 137},
+
+            {35, 136},
+            {42, 136},
+
+        }
+    })
+
+end
+
+pubg["AUG_F11"] = function (gunName) --NERFED
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 85},
+            {2, 85},
+            {4, 75},
+            {10, 112},
+            {15, 135},
+            {25, 144},
+            {30, 144},
+                        {35, 143},
+
+            {42, 144},
+
+        }
+    })
+
+end
+
+pubg["AUG_FS"] = function (gunName) --NERFED
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 43},
+            {2, 105},
+            {4, 70},
+            {10, 105}, --105
+            {15, 124}, 
+            {25, 125},                 ---OLD  --126    --127
+            {34, 124}, --124                   --126    --127
+            {42, 122}, --123                  --126   --127
+
+        }
+    })
+
+end
+pubg["AUG_F"] = function (gunName) --NERFED
+
+    return pubg.execOptions(gunName, {
+        interval = 8.2,
+        ballistic = {
+            {1, 175},
+            {20, 92}, --85
+            {40, 78}, --75
+            {100, 108},
+            {150, 125},
+            {250, 127}, --126    --127
+            {340, 128}, --126    --127
+            {420, 128}, --126   --127
+
+        }
+    })
+
+end
+
+pubg["AUG_fr"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 70}, --70
+            {2, 85},
+            {4, 75}, --75
+            {10, 109},
+            {15, 126},
+            {20, 126},
+            {25, 127},
+            {28, 129},
+            {30, 128},
+            {42, 126},
+
+        }
+    })
+
+end
+
+
+pubg["AUG_B"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 8,
+        ballistic = {
+            {1, 70},
+            {20, 75},
+            {40, 70},
+            {100, 118},
+            {150, 155},
+            {250, 165},
+            {300, 165},
+            {420, 169},
+
+        }
+    })
+
+end
+
+
+
+
+pubg["AKM_F"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 99,
+        ballistic = {
+            { 1, 60 },
+            { 2, 60 },
+            { 5, 101 },
+            { 10, 111 },
+            { 15, 134 },
+            { 25, 138 },
+            { 35, 141 },
+            { 42, 143 },
+        }
+    })
+end
+
+
+
+pubg["AKM_FR"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 75,
+        ballistic = {
+            {1, 65},
+            {2, 70},
+            {4, 65},
+            {10, 96},
+            {15, 115},
+            {25, 118},
+            {30, 121},
+            {40, 131},
+            {50, 126},
+            {65, 126},
+        }
+    })
+
+end
+
+
+pubg["AKM_B"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 75,
+        ballistic = {
+            {1, 65},
+            {2, 70},
+            {4, 65},
+            {10, 96},
+            {15, 115},
+            {25, 118},
+            {30, 121},
+            {40, 131},
+            {50, 126},
+            {65, 126},
+        }
+    })
+
+end
+
+
+pubg["M416_F"] = function  (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            { 1, 0 },
+            { 2, 131 },
+            { 3, 89 },
+            { 5, 89 },
+            { 8, 99 },
+            { 15, 105 },
+            { 20, 106 },
+            { 25, 110 },
+            { 30, 111 },
+            { 43, 112 },
+        }
+    })
+
+end
+
+											  
+
+pubg["M416_B"] = function  (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 85,
+        ballistic = {
+            {1, 60},
+            {2, 75},
+            {4, 90},
+            {10, 151},
+            {15, 151},
+            {20, 171},
+            {30, 182},
+            {40, 185},
+            {50, 185},
+            {60, 185},
+        }
+    })
+
+end
+
+pubg["QBZ"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 92,
+        ballistic = {
+            {1, 0},
+            {2, 34},
+            {5, 18},
+            {10, 22},
+            {15, 32},
+            {20, 34},
+            {40, 36},
+        }
+    })
+
+end
+
+pubg["DP-28"] = function (gunName)
+
+    return pubg.execOptions(gunName, {
+        interval = 100,
+        ballistic = {
+            {1, 0},
+            {2, 30},
+            {5, 20},
+            {47, 30},
+        }
+    })
+
+end
+
+
+
+function pubg.canUseFindByGunName (gunName)
+    local forList = { "AUG", "Famas", "P90", "MG3", "Beryl", "9mm", "M416", "5.56", "AKM", "7.62" }
+
+    for i = 1, #forList do
+        local bulletType = forList[i]
+        for j = 1, #userInfo.canUse[bulletType] do
+            local item = userInfo.canUse[bulletType][j]
+            if item[1] == gunName then
+                return item
+            end
+        end
+    end
+end
+
+
+
+function pubg.execOptions (gunName, options)
+			 
+
+
+    local gunInfo = pubg.canUseFindByGunName(gunName)
+
+					   
+    local ballisticConfig1 = {}
+							  
+    local ballisticConfig2 = {}
+
+    local ballisticIndex = 1
+    for i = 1, #options.ballistic do
+        local nextCount = options.ballistic[i][1]
+        if i ~= 1 then
+            nextCount = options.ballistic[i][1] - options.ballistic[i - 1][1]
+        end
+        for j = 1, nextCount do
+									 
+                        -- options.ballistic[i][2] * pubg.generalSensitivityRatio * options.ratio
+																	   
+ ballisticConfig1[ballisticIndex] =
+                -- options.ballistic[i][2] * pubg.generalSensitivityRatio * options.ratio
+                options.ballistic[i][2] * pubg.generalSensitivityRatio * gunInfo[3]
+            ballisticIndex = ballisticIndex + 1
+																	  
+        end
+    end
+
+    for i = 1, #ballisticConfig1 do
+        if i == 1 then
+            ballisticConfig2[i] = ballisticConfig1[i]
+        else
+            ballisticConfig2[i] = ballisticConfig2[i - 1] + ballisticConfig1[i]
+        end
+    end
+
+    return {
+        duration = options.interval * #ballisticConfig2,
+        amount = #ballisticConfig2,
+        interval = options.interval,
+        ballistic = ballisticConfig2,
+           ctrlmodeRatio = gunInfo[4], 
+         ctrlmodeRatio1 = gunInfo[5], 
+    }
+
+end
+
+										   
+function pubg.init ()
+
+								  
+    local forList = { "AUG", "Famas", "P90", "MG3", "Beryl", "9mm", "M416", "5.56", "AKM", "7.62" }
+
+    for i = 1, #forList do
+
+        local type = forList[i]
+        local gunCount = 0
+
+        for j = 1, #userInfo.canUse[type] do
+            local gunName = userInfo.canUse[type][j][1]
+            local gunState = userInfo.canUse[type][j][2]
+
+            if gunState >= 1 then
+							 
+                gunCount = gunCount + 1
+                pubg.gun[type][gunCount] = gunName
+                pubg.gunOptions[type][gunCount] = pubg[gunName](gunName) 
+
+                pubg.gunOptions[type][gunCount].autoContinuousFiring = ({ 0, 0, 1 })[
+                math.max(1, math.min(gunState + 1, 3))
+                ]
+							 
+                pubg.allCanUse_count = pubg.allCanUse_count + 1
+                pubg.allCanUse[pubg.allCanUse_count] = gunName
+
+                if pubg.bulletType == "" then
+                    pubg.bulletType = type
+                end
+
+            end
+
+        end
+
+    end
+					   
+					 
+
+---------------------------
+
+  pubg.outputLogRender()
+end
+
+
+
+----------------------------------------------------------------------------------------------------------
+              
+function pubg.auto (options)
+
+							 
+    pubg.currentTime = GetRunningTime()
+    pubg.bulletIndex = math.ceil(((pubg.currentTime - pubg.startTime == 0 and { 1 } or { pubg.currentTime - pubg.startTime })[1]) / options.interval) + 1
+    if pubg.bulletIndex > options.amount then
+        return false
+    end
+    local d = (IsKeyLockOn("scrolllock") and { (pubg.bulletIndex - 1) * pubg.xLengthForDebug } or { 0 })[1]
+    local x = math.ceil((pubg.currentTime - pubg.startTime) / (options.interval * (pubg.bulletIndex - 1)) * d) - pubg.xCounter
+    local y = math.ceil((pubg.currentTime - pubg.startTime) / (options.interval * 10 * (pubg.bulletIndex - 1)) * options.ballistic[pubg.bulletIndex]) - pubg.counter
+     	local realY = pubg.getRealY(options, y)
+
+																																		
+						   
+  --local realY = pubg.getRealY(y)
+    MoveMouseRelative(x, realY)
+										 
+    if options.autoContinuousFiring == 1 then
+        PressAndReleaseMouseButton(1)
+    end
+
+								  
+    pubg.autoLog(options, y)
+    pubg.outputLogRender()
+
+    pubg.xCounter = pubg.xCounter + x
+    pubg.counter = pubg.counter + y
+
+    pubg.autoSleep(IsKeyLockOn("scrolllock"))
+
+end
+
+						  
+function pubg.autoSleep (isTest)
+    
+    Sleep(10)
+end
+
+			 
+		  
+
+  --function pubg.autoSleep (isTest)
+--	Sleep(15)
+--end
+
+
+						   
+function pubg.getRealY (options, y)
+    local realY = y
+
+    if pubg.isAimingState("ADS") then
+        realY = y * pubg[pubg.scope_current]
+
+    elseif pubg.isAimingState("Aim") then
+        realY = y * userInfo.sensitivity.Aim * pubg.generalSensitivityRatio
+	   
+
+
+																								   
+											 
+    end
+              
+if userInfo.aimingSettings == "ctrlmode" and is_r_pressed  and IsModifierPressed("lctrl")  then
+     realY = realY * options.ctrlmodeRatio
+   end
+
+   if userInfo.aimingSettings == "ctrlmode" and is_r_pressed  and IsModifierPressed("lshift")  then
+       realY = realY * options.ctrlmodeRatio1
+   end
+  if userInfo.aimingSettings == "ctrlmode" and not is_r_pressed  and IsModifierPressed("lshift")  then
+        realY = realY 
+   end
+
+   --	return math.round(realY)           
+	return math.round(realY)
+end
+
+
+								  
+function pubg.changeIsStart (isTrue)
+    pubg.isStart = isTrue
+			   
+
+	
+end
+
+					   
+function pubg.setBulletType (bulletType)
+    pubg.bulletType = bulletType
+    pubg.gunIndex = 1
+    pubg.allCanUse_index = 0
+
+    local forList = { "AUG", "Famas", "P90", "MG3", "Beryl", "9mm", "M416", "5.56", "AKM", "7.62" }
+
+    for i = 1, #forList do
+        local type = forList[i]
+        if type == bulletType then
+            pubg.allCanUse_index = pubg.allCanUse_index + 1
+            break
+        else
+            pubg.allCanUse_index = pubg.allCanUse_index + #pubg.gun[type]
+        end
+    end
+
+    pubg.changeIsStart(true)
+end
+
+						 
+function pubg.setScope (scope)
+    pubg.scope_current = scope
+end
+
+					   
+function pubg.setGun (gunName)
+
+    local forList = { "AUG", "Famas", "P90", "MG3", "Beryl", "9mm", "M416", "5.56", "AKM", "7.62" }
+    local allCanUse_index = 0
+
+    for i = 1, #forList do
+
+        local type = forList[i]
+        local gunIndex = 0
+        local selected = false
+
+        for j = 1, #userInfo.canUse[type] do
+            if userInfo.canUse[type][j][2] >= 1 then
+                gunIndex = gunIndex + 1
+                allCanUse_index = allCanUse_index + 1
+                if userInfo.canUse[type][j][1] == gunName then
+                    pubg.bulletType = type
+                    pubg.gunIndex = gunIndex
+                    pubg.allCanUse_index = allCanUse_index
+                    selected = true
+                    break
+                end
+            end
+        end
+
+        if selected then
+            break
+        end
+
+    end
+
+    pubg.changeIsStart(true)
+end
+
+														 
+function pubg.findInCanUse (cmd)
+
+    if "first_in_canUse" == cmd then
+        pubg.allCanUse_index = 1
+    elseif "next_in_canUse" == cmd then
+        if pubg.allCanUse_index < #pubg.allCanUse then
+            pubg.allCanUse_index = pubg.allCanUse_index + 1
+        end
+    elseif "last_in_canUse" == cmd then
+        pubg.allCanUse_index = #pubg.allCanUse
+    end
+
+    pubg.setGun(pubg.allCanUse[pubg.allCanUse_index])
+end
+
+										 
+function pubg.findInSeries (cmd)
+    if "first" == cmd then
+        pubg.gunIndex = 1
+    elseif "next" == cmd then
+        if pubg.gunIndex < #pubg.gun[pubg.bulletType] then
+            pubg.gunIndex = pubg.gunIndex + 1
+        end
+    elseif "last" == cmd then
+        pubg.gunIndex = #pubg.gun[pubg.bulletType]
+    end
+
+    pubg.setGun(pubg.gun[pubg.bulletType][pubg.gunIndex])
+end
+
+							 
+function pubg.runStatus ()
+    if userInfo.startControl == "capslock" then
+        return IsKeyLockOn("capslock")
+    elseif userInfo.startControl == "numlock" then
+        return IsKeyLockOn("numlock")
+    elseif userInfo.startControl == "G_bind" then
+        return pubg.isStart
+    end
+end
+
+
+							 
+function pubg.runCmd (cmd)
+    if cmd == "" then
+        cmd = "none"
+    end
+    local switch = {
+        ["none"] = function () end,
+        ["AUG"] = pubg.setBulletType, 
+        ["Famas"] = pubg.setBulletType,
+        ["P90"] = pubg.setBulletType, 
+        ["MG3"] = pubg.setBulletType,       
+        ["Beryl"] = pubg.setBulletType,
+        ["9mm"] = pubg.setBulletType,
+        ["M416"] = pubg.setBulletType,
+
+        ["5.56"] = pubg.setBulletType,
+        ["AKM"] = pubg.setBulletType,
+
+        ["7.62"] = pubg.setBulletType,
+        ["scopeX1"] = pubg.setScope,
+        ["scopeX2"] = pubg.setScope,
+        ["scopeX3"] = pubg.setScope,
+        ["scopeX4"] = pubg.setScope,
+        ["scopeX6"] = pubg.setScope,
+        ["AUG_F"] = pubg.setGun,
+        ["AUG_B"] = pubg.setGun,
+        ["Famas_F"] = pubg.setGun,
+        ["Famas_B"] = pubg.setGun, 
+        ["P90_F"] = pubg.setGun,
+        ["P90_B"] = pubg.setGun,  
+        ["MG3_F"] = pubg.setGun,
+        ["MG3_B"] = pubg.setGun,  
+        ["Beryl_F"] = pubg.setGun,
+        ["Beryl_B"] = pubg.setGun,
+
+        ["Tommy Gun"] = pubg.setGun,
+        ["Vector"] = pubg.setGun,
+        ["Micro UZI"] = pubg.setGun,
+        ["M416_F"] = pubg.setGun,
+        ["M416_B"] = pubg.setGun,
+        ["SCAR-L"] = pubg.setGun,
+        ["M249"] = pubg.setGun, 
+        ["Groza"] = pubg.setGun,        
+        ["QBZ"] = pubg.setGun,
+        ["G36C"] = pubg.setGun,
+        ["M16A4"] = pubg.setGun,
+        ["AKM_F"] = pubg.setGun,
+        ["AKM_B"] = pubg.setGun,
+
+
+        ["DP-28"] = pubg.setGun,
+        ["first"] = pubg.findInSeries,
+        ["next"] = pubg.findInSeries,
+        ["last"] = pubg.findInSeries,
+        ["first_in_canUse"] = pubg.findInCanUse,
+        ["next_in_canUse"] = pubg.findInCanUse,
+        ["last_in_canUse"] = pubg.findInCanUse,
+        ["fast_pickup"] = pubg.fastPickup,
+        ["fast_discard"] = pubg.fastDiscard,
+        ["fast_lick_box"] = pubg.fastLickBox,
+        ["off"] = function ()
+            pubg.changeIsStart(false)
+        end,
+    }
+
+  ----------------------------
+    if pubg.ok then
+-----------------------------
+        local cmdGroup = string.split(cmd, '|')
+
+        for i = 1, #cmdGroup do
+            local _cmd = cmdGroup[i]
+            if switch[_cmd] then
+                switch[_cmd](_cmd)
+            end
+        end
+
+    end
+end
+
+						
+function pubg.outputLogRender ()
+    if userInfo.debug == 0 then
+        return false
+    end
+    if not pubg.G1 then
+        pubg.renderDom.switchTable = pubg.outputLogGunSwitchTable()
+    end
+    local resStr = table.concat({
+        "\n>> [\"", pubg.renderDom.combo_key, "\"] = \"", pubg.renderDom.cmd, "\" <<\n",
+        pubg.renderDom.separator,
+        pubg.renderDom.switchTable,
+        pubg.renderDom.separator,
+        pubg.outputLogGunInfo(),
+        pubg.renderDom.separator,
+        pubg.renderDom.autoLog,
+        pubg.renderDom.separator,
+    })
+    ClearLog()
+    OutputLogMessage(resStr)
+end
+
+							  
+function pubg.outputLogGunSwitchTable ()
+    local forList = { "AUG", "Famas", "P90", "MG3", "Beryl", "9mm", "M416", "5.56", "AKM", "7.62" }
+    local allCount = 0
+    local resStr = "      canUse_i\t      series_i\t      Series\t      Gun Name\n\n"
+
+    for i = 1, #forList do
+        local type = forList[i]
+        local gunCount = 0
+
+        for j = 1, #userInfo.canUse[type] do
+            if userInfo.canUse[type][j][2] >= 1 then
+                local gunName = userInfo.canUse[type][j][1]
+                local tag = gunName == pubg.gun[pubg.bulletType][pubg.gunIndex] and "=> " or "      "
+                gunCount = gunCount + 1
+                allCount = allCount + 1
+                resStr = table.concat({ resStr, tag, allCount, "\t", tag, gunCount, "\t", tag, type, "\t", tag, gunName, "\n" })
+            end
+        end
+
+    end
+
+    return resStr
+end
+
+					  
+function pubg.outputLogGunInfo ()
+    local k = pubg.bulletType
+    local i = pubg.gunIndex
+    local gunName = pubg.gun[k][i]
+
+    return table.concat({
+        "Currently scope: [ " .. pubg.scope_current .. " ]\n",
+        "Currently series: [ ", k, " ]\n",
+        "Currently index in series: [ ", i, " / ", #pubg.gun[k], " ]\n",
+        "Currently index in canUse: [ ", pubg.allCanUse_index, " / ", pubg.allCanUse_count, " ]\n",
+        "Recoil table of [ ", gunName, " ]:\n",
+        pubg.outputLogRecoilTable(),
+    })
+end
+
+							   
+function pubg.outputLogRecoilTable ()
+    local k = pubg.bulletType
+    local i = pubg.gunIndex
+    local resStr = "{ "
+    for j = 1, #pubg.gunOptions[k][i].ballistic do
+        local num = pubg.gunOptions[k][i].ballistic[j]
+        resStr = table.concat({ resStr, num })
+        if j ~= #pubg.gunOptions[k][i].ballistic then
+            resStr = table.concat({ resStr, ", " })
+        end
+    end
+
+    resStr = table.concat({ resStr, " }\n" })
+
+    return resStr
+end
+
+						
+function pubg.autoLog (options, y)
+    pubg.renderDom.autoLog = table.concat({
+        "----------------------------------- Automatically counteracting gun recoil -----------------------------------\n",
+        "------------------------------------------------------------------------------------------------------------------------------\n",
+        "bullet index: ", pubg.bulletIndex, "    target counter: ", options.ballistic[pubg.bulletIndex], "    current counter: ", pubg.counter, "\n",
+        "D-value(target - current): ", options.ballistic[pubg.bulletIndex], " - ", pubg.counter, " = ", options.ballistic[pubg.bulletIndex] - pubg.counter, "\n",
+        "move: math.ceil((", pubg.currentTime, " - ", pubg.startTime, ") / (", options.interval, " * (", pubg.bulletIndex, " - 1)) * ", options.ballistic[pubg.bulletIndex], ") - ", pubg.counter, " = ", y, "\n",
+        "------------------------------------------------------------------------------------------------------------------------------\n",
+    })
+end
+
+function pubg.PressOrRelaseAimKey (toggle)
+    if userInfo.autoPressAimKey ~= "" then
+        if toggle then
+            PressKey(userInfo.autoPressAimKey)
+        else
+            ReleaseKey(userInfo.autoPressAimKey)
+        end
+    end
+end
+
+						   
+function pubg.OnEvent_NoRecoil (event, arg, family)
+
+ if (event == "MOUSE_BUTTON_PRESSED" and arg == right_click and not IsModifierPressed("lshift")) then
+        is_r_pressed = true
+        --OutputLogMessage("EN\n")
+    elseif (event == "MOUSE_BUTTON_RELEASED" and arg == right_click) then
+        is_r_pressed = false
+        --OutputLogMessage("DIS\n")
+    end
+
+   if (event == "MOUSE_BUTTON_PRESSED" and arg == 1 and not IsKeyLockOn(full_mode_key) ) then
+pubg.gunIndex = 2
+elseif IsKeyLockOn(full_mode_key) then
+pubg.gunIndex = 1
+end
+
+
+  
+    if event == "MOUSE_BUTTON_PRESSED" and arg == 1 and family == "mouse" and pubg.ok then
+        if not pubg.runStatus() then
+            return false
+        end
+        if userInfo.aimingSettings ~= "default" and not IsMouseButtonPressed(3) then
+            pubg.PressOrRelaseAimKey(true)
+        end
+        if pubg.isAimingState("ADS") or pubg.isAimingState("Aim") then
+            pubg.startTime = GetRunningTime()
+            pubg.G1 = true
+            OutputLogMessage("Start Shooting....\n")
+  ---			SetMKeyState(1, "kb")
+
+  ---------------------------------
+            pubg.shooting()
+  ----------------------------------
+        end
+    end
+
+    if event == "MOUSE_BUTTON_RELEASED" and arg == 1 and family == "mouse" then
+        pubg.PressOrRelaseAimKey(false)
+        pubg.G1 = false
+        pubg.counter = 0
+        pubg.xCounter = 0
+  ----------------------------------
+  -----------------------------------
+    end
+end
+
+
+--if event == "MOUSE_BUTTON_PRESSED" and arg == 1 and pubg.G1 then
+          --  repeat
+		   -- OutputLogMessage("Start Shooting....\n")
+              --  pubg.auto(pubg.gunOptions[pubg.bulletType][pubg.gunIndex]) 
+						 
+               -- if not IsMouseButtonPressed(1) then break end
+		--SetMKeyState(1, "kb")
+--until not IsMouseButtonPressed(3)
+            --OutputLogMessage("Stop Shooting....\n")
+
+	--end
+
+--end
+
+---------------------------------------------------------------------------
+function pubg.shooting()
+    repeat
+        pubg.auto(pubg.gunOptions[pubg.bulletType][pubg.gunIndex])
+        if not IsMouseButtonPressed(1) then break end
+    until not IsMouseButtonPressed(3)
+    OutputLogMessage("Stop Shooting....\n")
+end
+-----------------------------------------------------------------------------
+
+function pubg.modifierHandle (modifier)
+    local cmd = userInfo.G_bind[modifier]
+    pubg.renderDom.combo_key = modifier
+
+    if (cmd) then
+        pubg.renderDom.cmd = cmd
+        pubg.runCmd(cmd)
+    else
+        pubg.renderDom.cmd = ""
+    end
+
+    pubg.outputLogRender()
+end
+
+function OnEvent (event, arg, family)
+-------------------------
+    if not pubg.ok then
+        return false
+    end
+--------------------
+    --OutputLogMessage("event = %s, arg = %s, family = %s\n", event, arg, family)
+    --console.log("event = " .. event .. ", arg = " .. arg .. ", family = " .. family)
+
+    pubg.OnEvent_NoRecoil(event, arg, family)
+									 
+										   
+			   
+    if event == "MOUSE_BUTTON_PRESSED" and arg >= 3 and arg <= 11 and family == "mouse" and pubg.ok then
+        local modifier = "G" .. arg
+        local list = { "lalt", "lctrl", "lshift", "ralt", "rctrl", "rshift" }
+
+        for i = 1, #list do
+            if IsModifierPressed(list[i]) then
+                modifier = list[i] .. " + " .. modifier
+                break
+            end
+        end
+
+        pubg.modifierHandle(modifier)
+    elseif event == "G_PRESSED" and arg >= 1 and arg <= 12 and pubg.ok then
+        local modifier = "F" .. arg
+        pubg.modifierHandle(modifier)
+					  
+					 
+		
+			
+    end
+
+    if event == "PROFILE_DEACTIVATED" then
+        EnablePrimaryMouseButtonEvents(false)
+        ReleaseKey("lshift")
+        ReleaseKey("lctrl")
+        ReleaseKey("lalt")
+        ReleaseKey("rshift")
+        ReleaseKey("rctrl")
+        ReleaseKey("ralt")
+        ClearLog()
+    end
+
+end
+
+			 
+
+function math.round (num, digit)
+    local decimalPlaces = 100 ^ (digit or 0)
+    return math.floor((num * decimalPlaces * 10 + 5) / 10) / decimalPlaces
+end
+
+
+  
+function string.split (str, s)
+    if string.find(str, s) == nil then
+        return { str }
+    end
+
+    local res = {}
+    local reg = "(.-)" .. s .. "()"
+    local index = 0
+    local last_i
+
+												   
+    for n, i in string.gfind(str, reg) do
+        index = index + 1
+        res[index] = n
+        last_i = i
+    end
+
+    res[index + 1] = string.sub(str, last_i)
+
+    return res
+end
+
+									
+function table.reduce (t, c)
+    local res = c(t[1], t[2])
+    for i = 3, #t do
+        res = c(res, t[i])
+    end
+    return res
+end
+
+								 
+function table.map (t, c)
+    local res = {}
+    for i = 1, #t do
+        res[i] = c(t[i], i)
+    end
+    return res
+end
+
+									 
+function table.forEach (t, c)
+    for i = 1, #t do
+        c(t[i], i)
+    end
+end
+
+	
+		
+						 
+						 
+  
+function table.print (val)
+
+    local function loop (val, keyType, _indent)
+        _indent = _indent or 1
+        keyType = keyType or "string"
+        local res = ""
+        local indentStr = "     "
+        local indent = string.rep(indentStr, _indent)
+        local end_indent = string.rep(indentStr, _indent - 1)
+        local putline = function(...)
+            local arr = { res, ... }
+            for i = 1, #arr do
+                if type(arr[i]) ~= "string" then
+                    arr[i] = tostring(arr[i])
+                end
+            end
+            res = table.concat(arr)
+        end
+
+        if type(val) == "table" then
+            putline("{ ")
+
+            if #val > 0 then
+                local index = 0
+                local block = false
+
+                for i = 1, #val do
+                    local n = val[i]
+                    if type(n) == "table" or type(n) == "function" then
+                        block = true
+                        break
+                    end
+                end
+
+                if block then
+                    for i = 1, #val do
+                        local n = val[i]
+                        index = index + 1
+                        if index == 1 then
+                            putline("\n")
+                        end
+                        putline(indent, loop(n, type(i), _indent + 1), "\n")
+                        if index == #val then
+                            putline(end_indent)
+                        end
+                    end
+                else
+                    for i = 1, #val do
+                        local n = val[i]
+                        index = index + 1
+                        putline(loop(n, type(i), _indent + 1))
+                    end
+                end
+
+            else
+                putline("\n")
+                for k, v in pairs(val) do
+                    putline(indent, k, " = ", loop(v, type(k), _indent + 1), "\n")
+                end
+                putline(end_indent)
+            end
+
+            putline("}, ")
+        elseif type(val) == "string" then
+            val = string.gsub(val, "\a", "\\a")
+            val = string.gsub(val, "\b", "\\b")
+            val = string.gsub(val, "\f", "\\f")
+            val = string.gsub(val, "\n", "\\n")
+            val = string.gsub(val, "\r", "\\r")
+            val = string.gsub(val, "\t", "\\t")
+            val = string.gsub(val, "\v", "\\v")
+            putline("\"", val, "\", ")
+        elseif type(val) == "boolean" then
+            putline(val and "true, " or "false, ")
+        elseif type(val) == "function" then
+            putline(tostring(val), ", ")
+        elseif type(val) == "nil" then
+            putline("nil, ")
+        else
+            putline(val, ", ")
+        end
+
+        return res
+    end
+
+    local res = loop(val)
+    res = string.gsub(res, ",(%s*})", "%1")
+    res = string.gsub(res, ",(%s*)$", "%1")
+    res = string.gsub(res, "{%s+}", "{}")
+
+    return res
+end
+
+		  
+console = {}
+function console.log (str)
+    OutputLogMessage(table.print(str) .. "\n")
+end
+
+					
+
+EnablePrimaryMouseButtonEvents(true)
+pubg.GD = GetDate
+pubg.ok = pubg.isEffective
+pubg.init()
